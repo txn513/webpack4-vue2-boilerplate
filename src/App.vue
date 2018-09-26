@@ -5,7 +5,7 @@
 </template>
 
 <style scoped>
-.test {
+#test {
 	color: blue;
 }
 </style>
