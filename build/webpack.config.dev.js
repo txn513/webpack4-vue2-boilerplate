@@ -1,52 +1,35 @@
 'use strict'
 
 const webpack = require('webpack')
-const { VueLoaderPlugin } = require('vue-loader')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const merge = require('webpack-merge')
+const baseConfig = require('./webpack.config.base')
 
 const HOST = 'localhost'
-const PORT = 8080
+const PORT = 8030
 
-module.exports = {
+
+
+
+module.exports = merge(baseConfig, {
   mode: 'development',
-  
-  entry: [
-    './src/app.js'
-  ],
 
   devServer: {
+    clientLogLevel: 'warning',
     hot: true,
-    open: true,
+    contentBase: 'dist',
+    compress: true,
     host: HOST,
     port: PORT,
+    open: true,
+    overlay: { warnings: false, errors: true },
+    publicPath: '/',
+    quiet: true,
     watchOptions: {
       poll: true
     }
   },
 
-  module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        use: 'vue-loader'
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ]
-      }
-    ]
-  },
-
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    })
+    new webpack.HotModuleReplacementPlugin()
   ]
-}
+})
