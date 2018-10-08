@@ -3,13 +3,20 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
-
+const config = require('../config')
 const utils = require('./utils')
 
 module.exports = {
   entry: [
     './src/app.js'
   ],
+  output: {
+      path: config.build.assetsRoot,
+      filename: '[name].js',
+      publicPath: process.env.NODE_ENV === 'production'
+          ? config.build.assetsPublicPath
+          : config.dev.assetsPublicPath
+  },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
