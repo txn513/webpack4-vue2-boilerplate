@@ -33,19 +33,20 @@ module.exports = {
         test: /\.vue$/,
         use: 'vue-loader'        
       },
-      {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ]
-      }, 
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     'vue-style-loader',
+      //     'css-loader'
+      //   ]
+      // }, 
       {
         test: /\.js$/,
         use: {
             loader: 'babel-loader',
             options: {
-                presets: ['@babel/preset-env']
+                presets: ['@babel/preset-env'],
+                compact: false
             }
         },
         exclude: '/node_modules/'
@@ -87,11 +88,6 @@ module.exports = {
       template: 'index.html',
       inject: true
     }),    
-    new VueLoaderPlugin(),
-    // new CopyWebpackPlugin([{
-    //   from: utils.resolve('static/img'),
-    //   to: utils.resolve('dist/static/img'),
-    //   toType: 'dir'
-    // }])
+    new VueLoaderPlugin()
   ]
 }

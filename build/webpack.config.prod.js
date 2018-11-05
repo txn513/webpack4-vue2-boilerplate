@@ -8,7 +8,7 @@ const utils = require('./utils')
 const webpack = require('webpack')
 const baseConfig = require('./webpack.config.base')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 // const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -20,7 +20,7 @@ module.exports = merge(baseConfig, {
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].[chunkhash].js'),
+    filename: utils.assetsPath('js/[name].[hash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
 
@@ -32,21 +32,28 @@ module.exports = merge(baseConfig, {
           name: "vendor",
           chunks: "all",
         },
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true
+        }
       },
     },
     runtimeChunk: true
   },
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.css?$/,
-  //       use: [
-  //         MiniCssExtractPlugin.loader, 
-  //         'css-loader'
-  //       ]
-  //     }
-  //   ]
-  // },
+  module: {
+    rules: [
+      {
+        test: /\.(sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ],
+      }
+    ]
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': env
@@ -57,17 +64,17 @@ module.exports = merge(baseConfig, {
     // new ExtractTextPlugin({
     //   filename: utils.assetsPath('css/[name].[contenthash].css')
     // }),
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css')
+    new MiniCssExtractPlugin({
+      filename: utils.assetsPath('css/[name].[hash].css')
     }),
 
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
-    new OptimizeCSSPlugin({
-      cssProcessorOptions: {
-        safe: true
-      }
-    }),
+    // new OptimizeCSSPlugin({
+    //   cssProcessorOptions: {
+    //     safe: true
+    //   }
+    // }),
 
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
@@ -84,7 +91,7 @@ module.exports = merge(baseConfig, {
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
+      // chunksSortMode: 'dependency'
     }),
 
     // copy custom static assets

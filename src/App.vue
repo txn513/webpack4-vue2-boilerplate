@@ -1,11 +1,14 @@
 <template>
   <div>
-    <h1 id="test">Hello wwwdddwww</h1>
+    <h1 id="test">Hello <span>World</span></h1>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 #test {
 	color: blue;
+	span {
+		color: gray;
+	}
 }
 </style>
