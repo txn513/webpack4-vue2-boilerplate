@@ -11,8 +11,6 @@ const HOST = 'localhost'
 const PORT = 8030
 
 
-
-
 module.exports = merge(baseConfig, {
   mode: 'development',
 
