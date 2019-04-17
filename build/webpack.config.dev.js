@@ -17,7 +17,7 @@ module.exports = merge(baseConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
   },
-
+  devtool: "inline-source-map",
   devServer: {
     clientLogLevel: 'warning',
     // hot: true,

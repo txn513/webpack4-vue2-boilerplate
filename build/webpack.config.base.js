@@ -7,9 +7,10 @@ const config = require('../config')
 const utils = require('./utils')
 
 module.exports = {
-  entry: [
-    './src/app.js'
-  ],
+  entry: {
+    app: './src/app.js',
+    test: './src/test.js'
+  },
   output: {
       path: config.build.assetsRoot,
       filename: '[name].js',
@@ -21,7 +22,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'assets': utils.resolve('assets'),
-      'pages': utils.resolve('src/pages'),
+      'views': utils.resolve('src/views'),
       'static': utils.resolve('static'),
       'components': utils.resolve('src/components')
     }
@@ -37,10 +38,10 @@ module.exports = {
         test: /\.js$/,
         use: {
             loader: 'babel-loader',
-            options: {
-                presets: ['@babel/preset-env'],
-                compact: false
-            }
+            // options: {
+            //     presets: ['@babel/preset-env'],
+            //     compact: false
+            // }
         },
         exclude: '/node_modules/'
       },

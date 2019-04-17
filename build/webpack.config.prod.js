@@ -11,6 +11,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 // const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const env = config.build.env
@@ -21,23 +22,29 @@ module.exports = merge(baseConfig, {
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[hash].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+    chunkFilename: utils.assetsPath('js/[name].[chunkhash].js')
   },
 
   optimization: {
     splitChunks: {
+      // chunks: "initial",
       cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendor",
-          chunks: "all",
-        },
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true
-        }
+        // vendor: {
+        //   // test: /[\\/]node_modules[\\/]/,
+        //   name: "vendor",
+        //   chunks: "initial",
+        //   priority: -10
+        // },
+        // async: {
+        //   name: "async",
+        //   chunks: "async",
+        // }
+        // styles: {
+        //   name: 'styles',
+        //   test: /\.css$/,
+        //   chunks: 'all',
+        //   enforce: true
+        // }
       },
     },
     runtimeChunk: true
@@ -55,10 +62,10 @@ module.exports = merge(baseConfig, {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env': env
     }),
-
 
     // extract css into its own file. No more working in 4.x. Using mini-css-extract-plugin instead
     // new ExtractTextPlugin({
