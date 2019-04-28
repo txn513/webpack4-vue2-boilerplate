@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const config = require('../config')
 const utils = require('./utils')
+const path = require('path')
 
 module.exports = {
   entry: {
@@ -43,6 +44,7 @@ module.exports = {
             //     compact: false
             // }
         },
+        include: path.resolve(__dirname, '../../src'),
         exclude: '/node_modules/'
       },
       {
