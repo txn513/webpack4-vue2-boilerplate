@@ -36,8 +36,10 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "vue": "^2.5.17",
+    "vue-axios": "^2.1.4",
     "vue-router": "^3.0.2"
   }
 }
